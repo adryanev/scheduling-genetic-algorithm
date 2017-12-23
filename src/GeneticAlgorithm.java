@@ -3,7 +3,15 @@
  */
 public class GeneticAlgorithm {
 
+    private int populationSize;
+    private double mutationRate;
+    private double crossoverRate;
+
     public GeneticAlgorithm(){
+        this.populationSize = HyperParameter.getMaxPopulation();
+        this.mutationRate = HyperParameter.getMutationRate();
+        this.crossoverRate = HyperParameter.getCrossoverRate();
+
 
     }
 
