@@ -10,7 +10,7 @@ public class Population {
         individuals = new Individual[populationSize];
 
         if(initialize){
-            for (int i = 0; i < size() ; i++) {
+            for (int i = 0; i < populationSize ; i++) {
                 Individual newIndividual = new Individual();
                 newIndividual.generateIndividual();
                 saveIndividual(i, newIndividual);

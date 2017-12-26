@@ -10,12 +10,13 @@ public class FitnessCalc {
     }
 
     static double getFitness(Individual individual) {
+        char[] jadwalKuliah = new char[]{'A','C','E','D','C','E','A','B','F','A','B','D','A','C','D','C','F','A'};
         int counter = 0;
-        double fitness = 0;
+        int counter1 = 0;
         char[] temp = new char[3];
         int tempIndex = 0;
         //cek apakah ada 1 hari yg sama
-        for (int i = 1; i <=individual.size() ; i++) {
+        for (int i = 0; i <=individual.size() ; i++) {
             if(i%3==0 &&  i!=0){
                 if(temp[0] == temp[1]) counter++;
                 if(temp[0] == temp[2]) counter++;
@@ -35,15 +36,22 @@ public class FitnessCalc {
 
         //cek apakah bentrok sama jadwal piket
         for (int i = 0; i <=individual.size() ; i++) {
+            if(i == individual.size()){
+                break;
+            }else{
+                if(individual.getGene(i)==jadwalKuliah[i]){
+                    counter1++;
+                }
+            }
 
         }
-
+        double fitness = 1/(1+((0.005*counter)+ (0.005*counter1)));
         return fitness;
     }
 
     // Get optimum fitness
-    static int getMaxFitness() {
-        int maxFitness = solution.length;
+    static double getMaxFitness() {
+        double maxFitness = solution.length;
         return maxFitness;
     }
 }

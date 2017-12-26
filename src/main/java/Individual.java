@@ -9,21 +9,26 @@ public class Individual {
     private Character[] genes;
     private double fitness = 0;
 
+    public Individual (){
+        genes = new Character[HyperParameter.getChromosomLength()];
+    }
     public void generateIndividual(){
-        String character = "abcdef";
+        String character = "ABCDEF";
         Random random = new Random();
         for (int i = 0; i <size() ; i++) {
            Character gene =  (char) character.charAt(random.nextInt(character.length()));
-           genes[i] = gene;
+           setGene(i,gene);
         }
+        this.fitness = 0;
     }
 
     public Character getGene(int index){
         return this.genes[index];
     }
+
     public void setGene(int index, Character gen){
+
         genes[index] = gen;
-        fitness = 0;
     }
 
     public int getIdIndividual() {
@@ -49,7 +54,7 @@ public class Individual {
     public String toString() {
         String geneString = "";
         for (int i = 0; i < size(); i++) {
-            geneString += getGene(i);
+            geneString += getGene(i)+", ";
         }
         return geneString;
     }

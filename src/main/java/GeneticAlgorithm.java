@@ -33,7 +33,9 @@ public class GeneticAlgorithm {
             Individual indiv1 = selectRandomIndividual(pop);
             Individual indiv2 = selectRandomIndividual(pop);
             Individual newIndiv = crossover(indiv1, indiv2);
+
             newPopulation.saveIndividual(i, newIndiv);
+
         }
 
         // Mutate population
@@ -49,7 +51,10 @@ public class GeneticAlgorithm {
     // Crossover individuals
     private static Individual crossover(Individual indiv1, Individual indiv2) {
         Individual newSol = new Individual();
-        // Loop through genes
+
+        Random r = new Random();
+        int crossoverPoint = r.nextInt(HyperParameter.getChromosomLength());
+
         for (int i = 0; i < indiv1.size(); i++) {
             // Crossover
             if (Math.random() <= crossoverRate) {
@@ -67,9 +72,9 @@ public class GeneticAlgorithm {
         for (int i = 0; i < indiv.size(); i++) {
             if (Math.random() <= mutationRate) {
                 // Create random gene
-                String character = "abcdef";
+                String character = "ABCDEF";
                 Random random = new Random();
-                char gene = (char) character.charAt(random.nextInt(character.length()));
+                char gene = character.charAt(random.nextInt(character.length()));
                 indiv.setGene(i, gene);
             }
         }
@@ -78,7 +83,7 @@ public class GeneticAlgorithm {
     public static Individual selectRandomIndividual(Population pop){
 
         Population select = new Population(3,false);
-        for (int i = 0; i <3 ; i++) {
+        for (int i = 0; i <select.size() ; i++) {
             //get random individual
             int randomId  = (int) (Math.random() * pop.size());
             select.saveIndividual(i,pop.getIndividual(randomId));
