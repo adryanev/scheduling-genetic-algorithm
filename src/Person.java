@@ -27,4 +27,6 @@ public class Person {
     public void setNama(String nama) {
         this.nama = nama;
     }
+
+
 }

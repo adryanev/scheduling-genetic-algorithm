@@ -30,4 +30,9 @@ public class HyperParameter {
         return chromosomLength;
     }
 
+    public static int getSumPerson(){
+        int sumPerson = 6;
+        return sumPerson;
+    }
+
 }
