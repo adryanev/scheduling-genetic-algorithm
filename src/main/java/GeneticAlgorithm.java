@@ -8,15 +8,40 @@ public class GeneticAlgorithm {
     private static final int populationSize = HyperParameter.getMaxPopulation();
     private static final double mutationRate = HyperParameter.getMutationRate();
     private static final double crossoverRate = HyperParameter.getCrossoverRate();
+    private static final boolean elitism = true;
 
     /* Public Method */
 
     public static Population evolvePopulation(Population pop){
         Population newPopulation = new Population(pop.size(),false);
 
-        //TODO: Kerjakan dengan algoritmanya
+        // Keep our best individual
+        if (elitism) {
+            newPopulation.saveIndividual(0, pop.getFittest());
+        }
 
-        return  newPopulation;
+        // Crossover population
+        int elitismOffset;
+        if (elitism) {
+            elitismOffset = 1;
+        } else {
+            elitismOffset = 0;
+        }
+        // Loop over the population size and create new individuals with
+        // crossover
+        for (int i = elitismOffset; i < pop.size(); i++) {
+            Individual indiv1 = selectRandomIndividual(pop);
+            Individual indiv2 = selectRandomIndividual(pop);
+            Individual newIndiv = crossover(indiv1, indiv2);
+            newPopulation.saveIndividual(i, newIndiv);
+        }
+
+        // Mutate population
+        for (int i = elitismOffset; i < newPopulation.size(); i++) {
+            mutate(newPopulation.getIndividual(i));
+        }
+
+        return newPopulation;
     }
 
 
